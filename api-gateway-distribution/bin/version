@@ -1,0 +1,19 @@
+#!/bin/bash
+
+error_exit ()
+{
+    echo "ERROR: $1 !!"
+    exit 1
+}
+
+[[ ! -e "$JAVA_HOME/bin/java" ]] && JAVA_HOME=$HOME/jdk/java
+[[ ! -e "$JAVA_HOME/bin/java" ]] && JAVA_HOME=/usr/java
+[[ ! -e "$JAVA_HOME/bin/java" ]] && error_exit "Please set the JAVA_HOME variable in your environment, We need java(x64)!"
+
+export BASE_DIR=$(dirname $0)/..
+export JAVA_HOME
+export JAVA="$JAVA_HOME/bin/java"
+
+JAVA_OPT="${JAVA_OPT} -Dfile.encoding=UTF8 -Djava.ext.dirs=${JAVA_HOME}/jre/lib/ext:${BASE_DIR}/lib"
+
+exec ${JAVA} ${JAVA_OPT} com.asiainfo.aifgw.Version

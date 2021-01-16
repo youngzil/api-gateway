@@ -1,0 +1,13 @@
+#!/bin/sh
+
+pid=`ps ax | grep -i 'com.asiainfo.aifgw.boot.Bootstrap' |grep java | grep -v grep | awk '{print $1}'`
+if [ -z "$pid" ] ; then
+        echo "No aifgw running." >&2
+        exit 1;
+fi
+
+echo "The aifgw(${pid}) is running..."
+
+kill ${pid}
+
+echo "Send shutdown request to aifgw(${pid}) OK"
